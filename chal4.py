@@ -1,7 +1,16 @@
 import math
 from math import log
 
-# Adapted from https://stackoverflow.com/questions/2068372/fastest-way-to-list-all-primes-below-n-in-python/3035188#3035188
+def prime_list_size(n):
+    if n > 3:
+        list_size = n*(log(n)+log(log(n-1))+(log(log(n-2))/(log(n))-(log(log(n))**2-6*log(log(n+11)))/(2*(log(n))))) 
+    if n <= 3:
+        list_size = 6    
+    list_size = int(list_size)
+    return list_size       
+
+
+# Below method is adapted from https://stackoverflow.com/questions/2068372/fastest-way-to-list-all-primes-below-n-in-python/3035188#3035188
 def prime_sieve(n):
     list_of_primes = []
     sieve = [1] * (n//2) #create a list with all elements set to 1 (i.e. true) with number of elements = prime_list_size/2
@@ -20,14 +29,6 @@ def prime_sieve(n):
             list_of_primes.append(2*i+1) #construct the list of primes using the elements that have 1 (i.e. true) in sieve 
     list_of_primes = [2] + list_of_primes #list of primes up to list_size/2
     return list_of_primes
-
-def prime_list_size(n):
-    if n > 3:
-        list_size = n*(log(n)+log(log(n-1))+(log(log(n-2))/(log(n))-(log(log(n))**2-6*log(log(n+11)))/(2*(log(n))))) 
-    if n <= 3:
-        list_size = 6    
-    list_size = int(list_size)
-    return list_size       
 
 m = int(input('nth prime number? '))
 k = prime_list_size(m)
